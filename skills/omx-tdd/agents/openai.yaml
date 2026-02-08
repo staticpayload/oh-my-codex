@@ -1,0 +1,10 @@
+interface:
+  display_name: "TDD"
+  short_description: "Test-driven development workflow"
+  brand_color: "#22C55E"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "claude_code"
+      description: "Claude Code for writing tests and implementation"

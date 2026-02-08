@@ -1,0 +1,11 @@
+interface:
+  display_name: "Claude Code"
+  short_description: "Async Claude Code delegation"
+  brand_color: "#D97706"
+  default_prompt: "Use the claude_code MCP tool to start a job, then poll with claude_code_status"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "claude_code"
+      description: "Start async Claude Code tasks, poll for results, cancel jobs, list all jobs"

@@ -1,0 +1,23 @@
+{
+  "name": "oh-my-codex",
+  "version": "1.0.0",
+  "description": "Orchestration layer for OpenAI Codex CLI — async Claude Code delegation, structured workflows, persistent state & memory",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/staticpayload/oh-my-codex.git"
+  },
+  "scripts": {
+    "install": "cd mcp-server && npm install",
+    "setup": "bash install.sh"
+  },
+  "keywords": [
+    "codex",
+    "openai",
+    "claude",
+    "mcp",
+    "orchestration",
+    "ai-agents",
+    "cli"
+  ]
+}

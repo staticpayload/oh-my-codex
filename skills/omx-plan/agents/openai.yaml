@@ -1,0 +1,10 @@
+interface:
+  display_name: "Planner"
+  short_description: "Strategic planning before implementation"
+  brand_color: "#6366F1"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "claude_code"
+      description: "Claude Code for codebase analysis during planning"

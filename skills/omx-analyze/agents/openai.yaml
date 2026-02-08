@@ -1,0 +1,10 @@
+interface:
+  display_name: "Analyzer"
+  short_description: "Deep debugging and analysis"
+  brand_color: "#8B5CF6"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "claude_code"
+      description: "Claude Code for code tracing and investigation"

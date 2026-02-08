@@ -1,0 +1,10 @@
+interface:
+  display_name: "Researcher"
+  short_description: "Multi-source research and analysis"
+  brand_color: "#F59E0B"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "claude_code"
+      description: "Claude Code for codebase-specific research"

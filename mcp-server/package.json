@@ -1,0 +1,13 @@
+{
+  "name": "omx-mcp",
+  "version": "1.0.0",
+  "description": "oh-my-codex: Orchestration MCP server for Codex CLI",
+  "type": "module",
+  "main": "server.mjs",
+  "bin": {
+    "omx-mcp": "server.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.11.2"
+  }
+}

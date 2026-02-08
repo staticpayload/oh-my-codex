@@ -1,0 +1,10 @@
+interface:
+  display_name: "Autopilot"
+  short_description: "Autonomous build from idea to code"
+  brand_color: "#10B981"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "claude_code"
+      description: "Async Claude Code delegation for implementation"

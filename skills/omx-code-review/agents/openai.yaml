@@ -1,0 +1,10 @@
+interface:
+  display_name: "Code Review"
+  short_description: "Comprehensive code quality review"
+  brand_color: "#EF4444"
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "claude_code"
+      description: "Claude Code for deep code analysis"

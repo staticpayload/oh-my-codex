@@ -1,0 +1,4 @@
+interface:
+  display_name: "omx Help"
+  short_description: "Guide for oh-my-codex"
+  brand_color: "#64748B"

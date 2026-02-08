@@ -1,0 +1,21 @@
+# oh-my-codex — Add this to your ~/.codex/config.toml
+#
+# The omx MCP server provides:
+#   - claude_code / claude_code_status / claude_code_cancel / claude_code_list
+#   - omx_state_read / omx_state_write / omx_state_clear / omx_state_list
+#   - omx_note_read / omx_note_write
+#   - omx_memory_read / omx_memory_write
+
+[mcp_servers.omx]
+command = "node"
+args = ["$HOME/.codex/mcp-servers/omx/server.mjs"]  # Update path after install
+startup_timeout_sec = 15
+tool_timeout_sec = 30
+
+# Optional: enable debug logging (goes to stderr)
+# [mcp_servers.omx.env]
+# MCP_OMX_DEBUG = "true"
+
+# Optional: override Claude CLI binary
+# [mcp_servers.omx.env]
+# CLAUDE_CLI_NAME = "/path/to/claude"
