@@ -24,8 +24,8 @@ Delegate coding tasks to Claude Code CLI through an async job-based MCP server. 
 {
   "tool": "claude_code",
   "arguments": {
-    "prompt": "Your work folder is /Users/staticpayload/Mainframe/my-project\n\nRefactor all class components to functional components with hooks.",
-    "workFolder": "/Users/staticpayload/Mainframe/my-project"
+    "prompt": "Your work folder is /path/to/your/project\n\nRefactor all class components to functional components with hooks.",
+    "workFolder": "/path/to/your/project"
   }
 }
 ```
@@ -102,7 +102,7 @@ This is the key advantage — you can do other work between polls:
 Claude Code does not inherit your CWD. **Always specify it in both the prompt AND the workFolder parameter:**
 
 ```
-Your work folder is /Users/staticpayload/Mainframe/my-project
+Your work folder is /path/to/your/project
 
 <task instructions here>
 ```
@@ -112,7 +112,7 @@ Your work folder is /Users/staticpayload/Mainframe/my-project
 Each job is stateless — no memory of previous calls. Include all context:
 
 ```
-Your work folder is /Users/staticpayload/Mainframe/my-project
+Your work folder is /path/to/your/project
 
 Fix the failing tests in src/__tests__/auth.test.ts. After fixing, run
 the full test suite with `npm test` and confirm all tests pass. If new
@@ -124,7 +124,7 @@ failures appear, fix those too.
 Claude Code can run tests, linters, type checkers. Ask it to verify:
 
 ```
-Your work folder is /Users/staticpayload/Mainframe/my-project
+Your work folder is /path/to/your/project
 
 Rename UserService to AuthService across the entire codebase. Update all
 imports, references, and file names. Run `tsc --noEmit` to verify no
@@ -136,7 +136,7 @@ type errors were introduced.
 ### Multi-file refactoring
 
 ```
-Your work folder is /Users/staticpayload/Mainframe/my-project
+Your work folder is /path/to/your/project
 
 Replace all uses of moment.js with date-fns across the codebase:
 1. Find all files importing moment
@@ -149,7 +149,7 @@ Replace all uses of moment.js with date-fns across the codebase:
 ### Git operations
 
 ```
-Your work folder is /Users/staticpayload/Mainframe/my-project
+Your work folder is /path/to/your/project
 
 Create clean atomic commits for the current changes:
 1. Run git status and git diff
@@ -161,7 +161,7 @@ Create clean atomic commits for the current changes:
 ### Read-only analysis
 
 ```
-Your work folder is /Users/staticpayload/Mainframe/my-project
+Your work folder is /path/to/your/project
 
 Analyze the dependency graph of src/services/. For each service:
 - List its imports (internal and external)
@@ -189,7 +189,7 @@ Config in `~/.codex/config.toml`:
 ```toml
 [mcp_servers.omx]
 command = "node"
-args = ["/Users/staticpayload/.codex/mcp-servers/omx/server.mjs"]
+args = ["$HOME/.codex/mcp-servers/omx/server.mjs"]
 startup_timeout_sec = 15
 tool_timeout_sec = 30
 ```
