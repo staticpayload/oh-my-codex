@@ -1,0 +1,20 @@
+{
+  "name": "omx-local-marketplace",
+  "interface": {
+    "displayName": "OMX Local Plugins"
+  },
+  "plugins": [
+    {
+      "name": "omx-product",
+      "source": {
+        "source": "local",
+        "path": "./plugins/omx-product"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

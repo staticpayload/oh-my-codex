@@ -1,23 +1,25 @@
 {
-  "name": "oh-my-codex",
-  "version": "1.0.0",
-  "description": "Orchestration layer for OpenAI Codex CLI — async Claude Code delegation, structured workflows, persistent state & memory",
+  "name": "oh-my-codex-workspace",
+  "version": "2.0.0",
+  "private": true,
+  "description": "OMX v2, a Codex-native orchestration runtime for OpenAI Codex",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/staticpayload/oh-my-codex.git"
+  "engines": {
+    "node": ">=20"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "install": "cd mcp-server && npm install",
-    "setup": "bash install.sh"
+    "build": "npm run build -w @oh-my-codex/core && npm run build -w oh-my-codex && npm run build -w @oh-my-codex/mcp-server && cargo build -p omx-explore",
+    "clean": "rm -rf packages/*/dist target",
+    "doctor": "node packages/cli/dist/bin.js doctor",
+    "setup": "node packages/cli/dist/bin.js setup",
+    "test": "npm run test -w @oh-my-codex/core && npm run test -w oh-my-codex && npm run test -w @oh-my-codex/mcp-server && cargo test -p omx-explore",
+    "typecheck": "npm run typecheck -w @oh-my-codex/core && npm run typecheck -w oh-my-codex && npm run typecheck -w @oh-my-codex/mcp-server"
   },
-  "keywords": [
-    "codex",
-    "openai",
-    "claude",
-    "mcp",
-    "orchestration",
-    "ai-agents",
-    "cli"
-  ]
+  "devDependencies": {
+    "@types/node": "^24.7.2",
+    "typescript": "^5.9.3"
+  }
 }
