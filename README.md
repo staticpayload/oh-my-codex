@@ -102,22 +102,34 @@ omx version
 
 ## Quick start
 
-### 1. Build
-
-```bash
-npm install
-npm run build
-```
-
-### 2. Install OMX into Codex
+### 1. Bootstrap from this repo
 
 ```bash
 bash install.sh
 ```
 
-Or use the CLI directly:
+That does the full local onboarding flow:
+
+- installs workspace dependencies when needed
+- builds OMX
+- links the `omx` CLI globally with `npm link`
+- runs `omx setup`
+- runs `omx doctor`
+
+### 2. Use OMX in any project
+
+Once `omx` is linked, move into the project you actually want to work on and run:
 
 ```bash
+omx setup
+```
+
+If you want the old manual path, it still works:
+
+```bash
+npm install
+npm run build
+cd packages/cli && npm link
 node packages/cli/dist/bin.js setup apply
 ```
 
@@ -139,11 +151,13 @@ $ultrawork "ship the feature end to end"
 ### Setup
 
 ```bash
-omx setup apply
+omx setup
+omx setup --force
+omx setup --dry-run
 omx setup repair
 omx setup uninstall
 omx setup migrate-v1
-omx setup apply --dry-run
+omx setup --no-plugin --no-hooks
 ```
 
 ### Team runtime

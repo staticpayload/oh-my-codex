@@ -4,7 +4,7 @@ Usage:
   omx <command> [options]
 
 Commands:
-  omx setup [apply|repair|uninstall|migrate-v1] [--dry-run]
+  omx setup [apply|repair|uninstall|migrate-v1] [--dry-run] [--force] [--no-plugin] [--no-hooks]
   omx doctor [--json]
   omx hud [--json] [--watch]
   omx team <init|status|spawn|queue|claim|heartbeat|complete|review|message|await|inbox|logs|resume|shutdown>

@@ -46,6 +46,8 @@ export function runDoctor(root: string, codexHome = join(process.env.HOME || "",
   const config = readCodexConfig(codexHome);
   const pluginsDoctor = runPluginsDoctor(root, codexHome);
   const hooks = hookStatus(root, codexHome);
+  const repoMarketplacePresent = existsSync(join(root, ".agents", "plugins", "marketplace.json"));
+  const personalOmxPluginInstalled = pluginsDoctor.installedPlugins.includes("omx-product");
 
   const checks: DoctorCheck[] = [
     {
@@ -128,11 +130,13 @@ export function runDoctor(root: string, codexHome = join(process.env.HOME || "",
     },
     {
       name: "repo-marketplace",
-      ok: existsSync(join(root, ".agents", "plugins", "marketplace.json")),
-      detail: existsSync(join(root, ".agents", "plugins", "marketplace.json"))
+      ok: repoMarketplacePresent || personalOmxPluginInstalled,
+      detail: repoMarketplacePresent
         ? "repo marketplace present"
-        : "repo marketplace missing",
-      level: existsSync(join(root, ".agents", "plugins", "marketplace.json")) ? "pass" : "warn",
+        : personalOmxPluginInstalled
+          ? "personal omx-product plugin installed"
+          : "repo marketplace missing",
+      level: repoMarketplacePresent || personalOmxPluginInstalled ? "pass" : "warn",
     },
     {
       name: "plugin-doctor",

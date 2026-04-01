@@ -4,6 +4,7 @@ import { mkdtempSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import {
+  applySetup,
   buildHooksConfig,
   createTeam,
   hookStatus,
@@ -54,6 +55,19 @@ test("team inbox receives queued task messages", () => {
 
   assert.ok(inbox.length >= 2);
   assert.ok(inbox.some((item) => /Task queued/.test(item.subject)));
+});
+
+test("setup applies the first-party install stack", () => {
+  const projectRoot = mkdtempSync(join(tmpdir(), "omx-setup-project-"));
+  const codexHome = mkdtempSync(join(tmpdir(), "omx-setup-codex-"));
+  const homeDir = mkdtempSync(join(tmpdir(), "omx-setup-home-"));
+  const result = applySetup(repoRoot, projectRoot, codexHome, { homeDir });
+
+  assert.ok(result.skillsInstalled >= 10);
+  assert.ok(result.agentsInstalled >= 6);
+  assert.equal(result.pluginInstalled, true);
+  assert.equal(result.hooksInstalled, true);
+  assert.equal(result.projectAgentsStatus, "written");
 });
 
 test("agent catalog stays aligned with committed templates", () => {

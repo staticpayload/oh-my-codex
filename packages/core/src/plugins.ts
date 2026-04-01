@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { cpSync, existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 import { ensureDir, readJson, writeJson } from "./json.js";
@@ -281,7 +281,7 @@ export function packPlugin(pathToPlugin: string, outputDir: string): string {
 export function installLocalPlugin(
   pathToPlugin: string,
   codexHome: string,
-  options: { enable?: boolean } = {},
+  options: { enable?: boolean; homeDir?: string } = {},
 ): { targetPath: string; marketplacePath: string } {
   const manifest = loadPluginManifest(pathToPlugin);
   if (!manifest) {
@@ -292,7 +292,7 @@ export function installLocalPlugin(
   mkdirSync(join(codexHome, "plugins"), { recursive: true });
   cpSync(pathToPlugin, targetPath, { recursive: true, force: true });
 
-  const home = homedir();
+  const home = options.homeDir ?? homedir();
   const marketplacePath = personalMarketplacePath(home);
   const marketplace = readJson<OmxPluginMarketplace>(marketplacePath, {
     name: "local-personal",
@@ -319,6 +319,36 @@ export function installLocalPlugin(
   const config = readCodexConfig(codexHome);
   if (options.enable ?? true) {
     setPluginEnabled(config, manifest.name, true);
+    writeCodexConfig(codexHome, config);
+  }
+
+  return { targetPath, marketplacePath };
+}
+
+export function removeInstalledPlugin(
+  codexHome: string,
+  pluginName: string,
+  options: { homeDir?: string } = {},
+): { targetPath: string; marketplacePath: string } {
+  const targetPath = join(codexHome, "plugins", pluginName);
+  rmSync(targetPath, { recursive: true, force: true });
+
+  const marketplacePath = personalMarketplacePath(options.homeDir ?? homedir());
+  const marketplace = readJson<OmxPluginMarketplace>(marketplacePath, {
+    name: "local-personal",
+    interface: {
+      displayName: "Personal Plugins",
+    },
+    plugins: [],
+  });
+  writeJson(marketplacePath, {
+    ...marketplace,
+    plugins: marketplace.plugins.filter((plugin) => plugin.name !== pluginName),
+  });
+
+  const config = readCodexConfig(codexHome);
+  if (config.plugins && typeof config.plugins === "object" && !Array.isArray(config.plugins)) {
+    delete (config.plugins as Record<string, unknown>)[pluginName];
     writeCodexConfig(codexHome, config);
   }
 
