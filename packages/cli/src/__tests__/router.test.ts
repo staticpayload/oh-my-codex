@@ -49,7 +49,17 @@ test("setup dry-run reports the v2 install actions", async () => {
 
   assert.equal(code, 0);
   assert.match(sink.output.join("\n"), /dry-run/);
-  assert.match(sink.output.join("\n"), /would configure MCP server/);
+  assert.match(sink.output.join("\n"), /would configure MCP server/i);
+});
+
+test("setup defaults to full onboarding output", async () => {
+  const sink = capture();
+  const code = await main(["setup", "--dry-run"], sink.io);
+
+  assert.equal(code, 0);
+  assert.match(sink.output.join("\n"), /\[5\/7\] Installing first-party plugin/i);
+  assert.match(sink.output.join("\n"), /\[6\/7\] Installing repo hook pack/i);
+  assert.match(sink.output.join("\n"), /AGENTS\.md/);
 });
 
 test("plugins doctor command is available", async () => {

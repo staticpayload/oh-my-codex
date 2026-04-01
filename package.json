@@ -11,9 +11,11 @@
     "packages/*"
   ],
   "scripts": {
+    "bootstrap": "bash install.sh",
     "build": "npm run build -w @oh-my-codex/core && npm run build -w oh-my-codex && npm run build -w @oh-my-codex/mcp-server && cargo build -p omx-explore",
     "clean": "rm -rf packages/*/dist target",
     "doctor": "node packages/cli/dist/bin.js doctor",
+    "link:global": "cd packages/cli && npm link",
     "setup": "node packages/cli/dist/bin.js setup",
     "test": "npm run test -w @oh-my-codex/core && npm run test -w oh-my-codex && npm run test -w @oh-my-codex/mcp-server && cargo test -p omx-explore",
     "typecheck": "npm run typecheck -w @oh-my-codex/core && npm run typecheck -w oh-my-codex && npm run typecheck -w @oh-my-codex/mcp-server"
