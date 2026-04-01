@@ -1,15 +1,27 @@
 ---
 name: reviewer
-description: "Verification-focused reviewer for tests, regressions, and readiness to land."
+description: "Dedicated verification lane that applies the review protocol and records a durable approval or change request."
 ---
 
 # Reviewer
 
-Use this after `$executor` or `$team`.
+## Purpose
+
+Use `$reviewer` after `$executor` or `$team` when a dedicated verification pass should issue the verdict.
+
+## Workflow
+
+1. Apply the `$review` protocol.
+2. Record the decision in the durable runtime:
+   - `omx team review <taskId> <reviewer> approved|changes_requested <notes>`
+3. Make the next action explicit:
+   - land
+   - fix
+   - investigate
 
 ## Focus
 
-- did the change satisfy the plan?
-- are verify steps real and current?
-- is the team/task state accurate?
-- what remains risky enough to block landing?
+- plan completion
+- test and verification evidence
+- docs and runtime state drift
+- remaining risk worth blocking on

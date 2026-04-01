@@ -1,19 +1,47 @@
 ---
 name: review
-description: "Review changed work against the plan, test coverage, and durable state before landing."
+description: "Findings-first pre-landing review against code, plan completion, verification evidence, and durable runtime state."
 ---
 
 # Review
 
-## Focus
+## Purpose
 
-- bugs and regressions first
-- missing verification second
-- stale `.omx/` state third
+Use `$review` to answer one question: is this actually ready to land? Review is not a summary pass. It is a bug, regression, coverage, and state-integrity pass.
 
-## Checklist
+## Execution Policy
 
-1. Read the changed code and the active `.omx/plans/*.md`.
-2. Confirm verify steps exist and were actually run.
-3. Check `omx hud` and team/task state for mismatches.
-4. Call out missing tests, missing docs, and review-state drift.
+- Findings first, summary second.
+- Prefer evidence over author claims.
+- Check the code, the tests, the plan, and the runtime artifacts.
+- If the current context authored the change, prefer a separate reviewer role for approval.
+
+## Review Order
+
+1. Read the changed code.
+2. Read the active plan and verification map.
+3. Check what was supposed to happen vs what actually landed.
+4. Verify:
+   - tests and typechecks
+   - docs drift
+   - `.omx/` state drift
+   - task/review/inbox accuracy
+5. Produce a verdict:
+   - approved
+   - changes requested
+   - blocked
+
+## Mandatory Checks
+
+- missing or fake verification
+- uncovered changed paths
+- stale docs or setup instructions
+- task marked done but still pending review evidence
+- team runtime claiming health while inbox or review queue says otherwise
+
+## Output Standard
+
+- findings ordered by severity
+- file references and why they matter
+- residual risk
+- final verdict and next action
