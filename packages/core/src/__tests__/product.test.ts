@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync } from "node:fs";
+import { mkdtempSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import {
@@ -9,10 +9,12 @@ import {
   hookStatus,
   installRepoHooks,
   OMX_HOOK_PRESETS,
+  OMX_SKILL_CATALOG,
   queueTeamTask,
   readTeamInbox,
   runPluginsDoctor,
   scaffoldPlugin,
+  OMX_AGENT_CATALOG,
   validateAgentCatalog,
   validatePlugin,
 } from "../index.js";
@@ -57,6 +59,36 @@ test("team inbox receives queued task messages", () => {
 test("agent catalog stays aligned with committed templates", () => {
   const report = validateAgentCatalog(repoRoot);
   assert.equal(report.ok, true);
+});
+
+test("shipped skill catalog stays substantive", () => {
+  for (const skillId of OMX_SKILL_CATALOG) {
+    const content = readFileSync(join(repoRoot, "skills", skillId, "SKILL.md"), "utf8");
+    const lines = content.trim().split("\n");
+    assert.ok(lines.length >= 25, `${skillId} skill should not regress to placeholder length`);
+    assert.match(content, /## /, `${skillId} skill should include structured sections`);
+  }
+});
+
+test("shipped plugin skills stay substantive", () => {
+  for (const skillId of ["ultrawork", "team", "review"]) {
+    const content = readFileSync(
+      join(repoRoot, "plugins", "omx-product", "skills", skillId, "SKILL.md"),
+      "utf8",
+    );
+    const lines = content.trim().split("\n");
+    assert.ok(lines.length >= 20, `${skillId} plugin skill should not regress to placeholder length`);
+    assert.match(content, /## /, `${skillId} plugin skill should include structured sections`);
+  }
+});
+
+test("agent prompt templates stay substantive", () => {
+  for (const agent of OMX_AGENT_CATALOG) {
+    const content = readFileSync(join(repoRoot, "templates", "agents", agent.promptTemplate), "utf8");
+    const lines = content.trim().split("\n");
+    assert.ok(lines.length >= 18, `${agent.id} template should not regress to placeholder length`);
+    assert.match(content, /## Purpose/, `${agent.id} template should define a purpose section`);
+  }
 });
 
 test("plugins doctor reports marketplace plugins", () => {
