@@ -102,10 +102,10 @@ omx version
 
 ## Quick start
 
-### 1. Bootstrap from this repo
+### 1. Ask your agent - Paste this to your agent
 
 ```bash
-bash install.sh
+Install this to .codex - https://github.com/staticpayload/oh-my-codex/
 ```
 
 That does the full local onboarding flow:
