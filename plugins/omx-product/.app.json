@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "name": "omx-hud",
+      "entry": "omx hud --json",
+      "description": "Read the live OMX runtime surface."
+    }
+  ]
+}

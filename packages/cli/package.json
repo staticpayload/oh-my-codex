@@ -1,0 +1,22 @@
+{
+  "name": "oh-my-codex",
+  "version": "2.0.0",
+  "description": "OMX v2, the Codex-native orchestration runtime",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "omx": "dist/bin.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node -e \"require('fs').chmodSync('dist/bin.js', 0o755)\"",
+    "test": "node --test dist/__tests__/*.test.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@oh-my-codex/core": "file:../core"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "omx-product",
+  "version": "2.0.0",
+  "description": "First-party OMX bundle for Codex-native orchestration workflows.",
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "orchestration",
+    "workflow",
+    "productivity"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "apps": "./.app.json",
+  "interface": {
+    "displayName": "OMX Product",
+    "shortDescription": "First-party skill bundle for OMX v2.",
+    "longDescription": "Bundles the default OMX product workflows so Codex can activate the same operator surfaces shipped by this repo.",
+    "developerName": "oh-my-codex",
+    "category": "Developer Tools",
+    "capabilities": [
+      "skills",
+      "operator workflows",
+      "team orchestration"
+    ]
+  }
+}
